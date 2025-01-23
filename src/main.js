@@ -93,7 +93,7 @@ const onLoadMoreBtnClick = async event => {
         title: 'Info',
         message: "We're sorry, but you've reached the end of search results.",
       });
-      return;
+      // return;
     }
   } catch (error) {
     iziToast.error({

@@ -98,6 +98,10 @@
   display: block;
 }
 
+.load-more-btn.is-hidden {
+  display: none;
+}
+
 .loader {
   text-align: center;
   font-size: 18px;
