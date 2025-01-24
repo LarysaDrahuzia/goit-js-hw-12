@@ -102,6 +102,7 @@ const onLoadMoreBtnClick = async event => {
       position: 'topRight',
       message: 'Failed to load images. Please try again later.',
     });
+    console.log(error);
   }
 };
 
