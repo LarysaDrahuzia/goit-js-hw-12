@@ -102,13 +102,11 @@ const onLoadMoreBtnClick = async event => {
       position: 'topRight',
       message: 'Failed to load images. Please try again later.',
     });
-    console.log(error);
   }
 };
 
 const smoothScroll = () => {
-  const { height: cardHeight } =
-    document.galleryContainer.firstElementChild.getBoundingClientRect();
+  const { height: cardHeight } = galleryContainer.getBoundingClientRect();
   window.scrollBy({
     top: cardHeight * 2,
     behavior: 'smooth',
