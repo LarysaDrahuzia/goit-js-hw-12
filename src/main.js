@@ -40,8 +40,6 @@ const onFormSubmit = async event => {
 
     const { data } = await fetchPhotos(query, page);
 
-    loader.style.display = 'none';
-
     if (!data.hits.length) {
       iziToast.error({
         title: 'Error',
@@ -69,6 +67,8 @@ const onFormSubmit = async event => {
       loadMoreBtn.addEventListener('click', onLoadMoreBtnClick);
     }
   } catch (error) {
+    console.log(error);
+  } finally {
     loader.style.display = 'none';
   }
 };
@@ -77,10 +77,10 @@ formEl.addEventListener('submit', onFormSubmit);
 
 const onLoadMoreBtnClick = async event => {
   loader.style.display = 'block';
+  page++;
   try {
-    page++;
-
     const { data } = await fetchPhotos(query, page);
+    loader.style.display = 'none';
 
     const markup = renderPhotoCards(data.hits);
     galleryContainer.insertAdjacentHTML('beforeend', markup);
@@ -96,8 +96,8 @@ const onLoadMoreBtnClick = async event => {
       loadMoreBtn.classList.add('is-hidden');
       loadMoreBtn.removeEventListener('click', onLoadMoreBtnClick);
     }
+
     smoothScroll();
-    loader.style.display = 'none';
   } catch (error) {
     iziToast.error({
       title: 'Error',
