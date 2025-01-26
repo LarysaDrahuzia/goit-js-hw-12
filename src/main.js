@@ -21,24 +21,26 @@ loader.style.display = 'none';
 const onFormSubmit = async event => {
   event.preventDefault();
   galleryContainer.innerHTML = '';
-  loader.style.display = 'block';
 
   query = event.currentTarget.elements.user_query.value.trim();
   page = 1;
   loadMoreBtn.classList.add('is-hidden');
+  loader.style.display = 'block';
+
+  if (query === '') {
+    iziToast.warning({
+      title: 'Warning',
+      position: 'topRight',
+      message: 'Please enter a search query!',
+    });
+    loader.style.display = 'none';
+    return;
+  }
+
+  loader.style.display = 'block';
 
   try {
     const { data } = await fetchPhotos(query, page);
-
-    if (query === '') {
-      iziToast.warning({
-        title: 'Warning',
-        position: 'topRight',
-        message: 'Please enter a search query!',
-      });
-
-      return;
-    }
 
     if (!data.hits.length) {
       iziToast.error({
