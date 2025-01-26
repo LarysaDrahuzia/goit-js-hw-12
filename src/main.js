@@ -19,12 +19,16 @@ let lightbox;
 loader.style.display = 'none';
 
 const onFormSubmit = async event => {
-  try {
-    event.preventDefault();
-    galleryContainer.innerHTML = '';
-    loader.style.display = 'block';
+  event.preventDefault();
+  galleryContainer.innerHTML = '';
+  loader.style.display = 'block';
 
-    query = event.currentTarget.elements.user_query.value.trim();
+  query = event.currentTarget.elements.user_query.value.trim();
+  page = 1;
+  loadMoreBtn.classList.add('is-hidden');
+
+  try {
+    const { data } = await fetchPhotos(query, page);
 
     if (query === '') {
       iziToast.warning({
@@ -32,13 +36,9 @@ const onFormSubmit = async event => {
         position: 'topRight',
         message: 'Please enter a search query!',
       });
+
       return;
     }
-
-    page = 1;
-    loadMoreBtn.classList.add('is-hidden');
-
-    const { data } = await fetchPhotos(query, page);
 
     if (!data.hits.length) {
       iziToast.error({
