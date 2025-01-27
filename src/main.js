@@ -37,8 +37,6 @@ const onFormSubmit = async event => {
     return;
   }
 
-  loader.style.display = 'block';
-
   try {
     const { data } = await fetchPhotos(query, page);
 
