@@ -84,7 +84,7 @@ const onLoadMoreBtnClick = async event => {
 
     const markup = renderPhotoCards(data.hits);
     galleryContainer.insertAdjacentHTML('beforeend', markup);
-
+    smoothScroll();
     lightbox.refresh();
 
     if (page * 15 >= data.totalHits) {
@@ -96,8 +96,6 @@ const onLoadMoreBtnClick = async event => {
       loadMoreBtn.classList.add('is-hidden');
       loadMoreBtn.removeEventListener('click', onLoadMoreBtnClick);
     }
-
-    smoothScroll();
   } catch (error) {
     iziToast.error({
       title: 'Error',
@@ -108,7 +106,8 @@ const onLoadMoreBtnClick = async event => {
 };
 
 const smoothScroll = () => {
-  const { height: cardHeight } = galleryContainer.getBoundingClientRect();
+  const { height: cardHeight } =
+    galleryContainer.firstElementChild.getBoundingClientRect();
   window.scrollBy({
     top: cardHeight * 2,
     behavior: 'smooth',
